@@ -6,7 +6,7 @@ const Cart = require("../../models/Cart");
 
 const createOrder = async (req, res) => {
   try {
-    //// First we are receiving all of these from our order information
+    // First we are receiving all of these from our order information
     const {
       userId,
       cartItems,
@@ -31,7 +31,7 @@ const createOrder = async (req, res) => {
       // but if the payment is not successful then the user will be redirected to the cancel url
       redirect_urls: {
         return_url: "http://localhost:5173/shop/paypal-return",
-        cancel_url: "http://localhost:5173/shop/papal-cancel",
+        cancel_url: "http://localhost:5173/shop/paypal-cancel",
       },
 
       // Here we are creating the transactions
@@ -80,7 +80,7 @@ const createOrder = async (req, res) => {
           paymentId, //empty
           payerId,
         });
-
+ 
         await newlyCreatedOrder.save();
 
         //Here we are getting the approval url from the payment info
