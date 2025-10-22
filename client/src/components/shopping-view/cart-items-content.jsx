@@ -40,6 +40,7 @@ function UserCartItemsContent({ cartItem }) {
     });
   }
 
+  //logic for delete icon
   function handleCartItemDelete(getCartItem) {
     const isConfirmed = window.confirm(
       "Are you sure you want to remove this item from your cart?"

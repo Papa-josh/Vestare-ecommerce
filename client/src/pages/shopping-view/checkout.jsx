@@ -68,6 +68,9 @@ function ShoppingCheckout() {
 
     console.log(orderData, "orderData");
 
+
+    // here we are dispatching the createNewOrder action
+    // and passing the orderData
     dispatch(createNewOrder(orderData)).then((data) => {
       console.log(data, "data");
       if (data?.payload?.success) {
@@ -90,7 +93,7 @@ function ShoppingCheckout() {
   }).format(totalCartAmount);
 
   return (
-    <div className="felx flex-col">
+    <div className="flex flex-col">
       <div className="relative h-[300px] w-full overflow-hidden">
         <img src={img} className="h-full w-full object-cover object-center" />
       </div>

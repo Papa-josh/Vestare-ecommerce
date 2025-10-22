@@ -50,7 +50,7 @@ function App() {
       <Routes>
         {/* inside this use all routes */}
         {/* Parent as if you type in a browser; like this "http://localhost:5173/auth/register"*/}
-
+x 
         <Route
           path="/"
           element={
