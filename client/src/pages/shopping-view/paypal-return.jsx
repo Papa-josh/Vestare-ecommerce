@@ -17,8 +17,8 @@ function PaypalReturnPage() {
       -dispatch(capturePayment({ paymentId, payerId, orderId })).then(
         (data) => {
           if (data?.payload?.success) {
-            sessionStorage.removeItem("currentOrderId");
-            windows.location.href = "/shop/payment-success ";
+            sessionStorage.removeItem("currentOrderId"); //remove current order id from session storage
+            window.location.href = "/shop/payment-success"; //redirect to payment success page
           }
         }
       );
