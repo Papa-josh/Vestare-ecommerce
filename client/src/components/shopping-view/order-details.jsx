@@ -1,29 +1,41 @@
 import React, { useState } from "react";
-import { DialogContent } from "../ui/dialog";
 import { Label } from "../ui/label";
 import { Separator } from "../ui/separator";
+import { DialogContent, DialogHeader, DialogTitle, DialogDescription } from "../ui/dialog";
+import { Badge } from "../ui/badge";
+
 
 function ShoppingOrderDetailsView({ orderDetails }) {
   console.log(orderDetails);
   return (
     <DialogContent className>
+      <DialogHeader>
+        <DialogTitle>Order Details</DialogTitle>
+        <DialogDescription>
+          Here you can view details about your selected order.
+        </DialogDescription>
+      </DialogHeader>
       <div className="grid gap-6">
         <div className="grid gap-2">
           <div className="flex mt-6 items-center justify-between">
             <p className="font-medium">Order ID</p>
-            <Label>123456</Label>
+            <Label>{orderDetails?._id}</Label>
           </div>
           <div className="flex mt-2 items-center justify-between">
             <p className="font-medium">Order Date</p>
-            <Label>29/11/2021</Label>
+            <Label>{orderDetails?.orderDate.split('T')[0]}</Label>
           </div>
           <div className="flex mt-6 items-center justify-between">
             <p className="font-medium">Order Price</p>
-            <Label>$400</Label>
+            <Label>{orderDetails?.totalAmount}</Label>
           </div>
           <div className="flex mt-2 items-center justify-between">
             <p className="font-medium">Order Status</p>
-            <Label>In Process</Label>
+            <Label>
+              <Badge className={`py-1 px-3 ${orderDetails?.orderStatus === 'confirmed' ? 'bg-green-500' : 'bg-black'}`}>
+                     {orderDetails?.orderStatus}
+                  </Badge>
+             </Label>
           </div>
         </div>
         <Separator />

@@ -181,7 +181,7 @@ const getOrderDetails = async (req, res) => {
     }
     res.status(200).json({
       success: true,
-      data: orders,
+      data: order,
     });
   } catch (e) {
     console.log(e);
