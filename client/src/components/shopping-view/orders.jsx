@@ -1,6 +1,6 @@
 //client/src/components/shopping-view/orders.jsx
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import {
   Table,
@@ -13,9 +13,23 @@ import {
 import { Button } from "../ui/button";
 import ShoppingOrderDetailsView from "./order-details";
 import { Dialog } from "../ui/dialog";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllOrdersByUserId } from "@/store/shop/order-slice";
 
 function ShoppingOrders() {
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
+  const dispatch = useDispatch();
+  const {user} = useSelector((state) => state.auth);
+  const {orderList} = useSelector((state) => state.shopOrder);
+
+  useEffect(() => {
+
+      dispatch(getAllOrdersByUserId(user?.id));
+    
+  }, [dispatch]);
+
+  console.log("order List", orderList);
+
   return (
     <div>
       <Card>
