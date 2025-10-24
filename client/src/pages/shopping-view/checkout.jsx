@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { data } from "autoprefixer";
 import { createNewOrder } from "@/store/shop/order-slice";
+import { useToast } from "@/hooks/use-toast";
+
 
 function ShoppingCheckout() {
   const { cartItems } = useSelector((state) => state.shopCart);
@@ -16,6 +18,7 @@ function ShoppingCheckout() {
   const [currentSelectedAddress, setCurrentSelectedAddress] = useState(null);
   const [isPaymentStart, setIsPaymentStart] = useState(false);
   const dispatch = useDispatch();
+  const { toast } = useToast();
 
   console.log(currentSelectedAddress, "address");
   // console.log(cartItems, "cartItems");
@@ -35,6 +38,15 @@ function ShoppingCheckout() {
       : 0;
 
   function handleInitiatePaypalPayment() {
+    if (cartItems.length === 0) {
+      toast({
+        title: "Your cart is empty. Please add items to proceed. ",
+        variant: "destructive",
+      });
+      return;
+    } 
+  
+
     const orderData = {
       userId: user?.id,
       cartId: cartItems?._id,
