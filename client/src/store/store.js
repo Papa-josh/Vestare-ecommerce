@@ -15,6 +15,7 @@ import shopProductsSlice from "./shop/products-slice";
 import shopCartSlice from "./shop/cart-slice";
 import shopAddressSlice from "./shop/address-slice";
 import shopOrderSlice from "./shop/order-slice";
+import adminOrderSlice from "./admin/order-slice";
 
 //We need to combine all the slice into one slice and that will create a global reducer so we are going to create :
 //This will be stored and here we don't need to manually combine all the reducer ReduxToolkit. It will do it for us
@@ -26,6 +27,7 @@ const store = configureStore({
     shopCart: shopCartSlice,
     shopAddress: shopAddressSlice,
     shopOrder: shopOrderSlice,
+    adminOrder: adminOrderSlice,
   },
 });
 
