@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import { Label } from "../ui/label";
 import { Separator } from "../ui/separator";
-import { DialogContent, DialogHeader, DialogTitle, DialogDescription } from "../ui/dialog";
+import {
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "../ui/dialog";
 import { Badge } from "../ui/badge";
 import { useSelector } from "react-redux";
 
-
 function ShoppingOrderDetailsView({ orderDetails }) {
-  const {user} = useSelector(state => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   console.log(orderDetails);
   return (
-    <DialogContent className>
+    <DialogContent className="sm:max-w-[540px] max-h-[90vh] overflow-y-auto">
       <DialogHeader>
         <DialogTitle>Order Details</DialogTitle>
         <DialogDescription>
@@ -26,7 +30,7 @@ function ShoppingOrderDetailsView({ orderDetails }) {
           </div>
           <div className="flex mt-2 items-center justify-between">
             <p className="font-medium">Order Date</p>
-            <Label>{orderDetails?.orderDate.split('T')[0]}</Label>
+            <Label>{orderDetails?.orderDate.split("T")[0]}</Label>
           </div>
           <div className="flex mt-6 items-center justify-between">
             <p className="font-medium">Order Price</p>
@@ -43,10 +47,18 @@ function ShoppingOrderDetailsView({ orderDetails }) {
           <div className="flex mt-2 items-center justify-between">
             <p className="font-medium">Order Status</p>
             <Label>
-              <Badge className={`py-1 px-3 ${orderDetails?.orderStatus === 'confirmed' ? 'bg-green-500' : 'bg-black'}`}>
-                     {orderDetails?.orderStatus}
-                  </Badge>
-             </Label>
+              <Badge
+                className={`py-1 px-3 ${
+                  orderDetails?.orderStatus === "confirmed"
+                    ? "bg-green-500"
+                    : orderDetails?.orderStatus === "rejected"
+                    ? "bg-red-500"
+                    : "bg-black"
+                }`}
+              >
+                {orderDetails?.orderStatus}
+              </Badge>
+            </Label>
           </div>
         </div>
         <Separator />
@@ -54,16 +66,20 @@ function ShoppingOrderDetailsView({ orderDetails }) {
           <div className="grid gap-2">
             <div className="font-medium">Order Details</div>
             <ul className="grid gap-3">
-              {
-                orderDetails?.cartItems && orderDetails?.cartItems.length > 0 ?
-                orderDetails?.cartItems.map((item) => (
-                  <li key={item._id} className="flex items-center justify-between">
-                    <span>Title: {item.title} (x{item.quantity})</span>
-                    <span>Quantity: {item.quantity}</span>
-                    <span>Price: ${item.price}</span>
-                  </li>
-                )) : null
-              }
+              {orderDetails?.cartItems && orderDetails?.cartItems.length > 0
+                ? orderDetails?.cartItems.map((item) => (
+                    <li
+                      key={item._id}
+                      className="flex items-center justify-between"
+                    >
+                      <span>
+                        Title: {item.title} (x{item.quantity})
+                      </span>
+                      <span>Quantity: {item.quantity}</span>
+                      <span>Price: ${item.price}</span>
+                    </li>
+                  ))
+                : null}
             </ul>
           </div>
         </div>
