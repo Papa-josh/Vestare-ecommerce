@@ -50,9 +50,8 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
   return (
     <Dialog open={open} onOpenChange={handleDialogClose}>
       <DialogContent className="grid grid-cols-2 gap-8 sm:p-12 max-w-[90vw] sm:max-w-[80vw] lg:max-w-[70vw]">
-        <DialogTitle>Product Details</DialogTitle>
+        <DialogTitle className="">Product Details</DialogTitle>
         <DialogDescription>
-          View the details of this product and add it to your cart.
         </DialogDescription>
         <div className="relative overflow-hidden rounded-lg">
           <img
@@ -95,12 +94,20 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
             <span className="text-muted-foreground">(4.5)</span>
           </div>
           <div className="mt-5 mb-5">
-            <Button
-              className="w-full"
-              onClick={() => handleAddtoCart(productDetails?._id)}
-            >
-              Add to Cart
-            </Button>
+            {productDetails?.totalStock === 0 ? (
+              <Button
+                className="w-full opacity-60 cursor-not-allowed" disabled
+              >
+                Out of Stock
+              </Button>
+            ) : (
+              <Button
+                className="w-full"
+                onClick={() => handleAddtoCart(productDetails?._id)}
+              >
+                Add to Cart
+              </Button>
+            )}
           </div>
           <Separator />
           <div className="max-h-[300px] overflow-auto">

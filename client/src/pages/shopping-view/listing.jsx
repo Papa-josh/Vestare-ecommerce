@@ -36,7 +36,7 @@ function ShoppingListing() {
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
   const { toast } = useToast();
 
-  // console.log(productList, "productList");
+  console.log(productList, "product list");
 
   //
   // eto yung makikita sa karugtong ng url
@@ -59,6 +59,9 @@ function ShoppingListing() {
     return queryParams.join("&");
   }
 
+  // getting the category search param from the url
+  const categorySearchParam = searchParams.get('category'); 
+
   function handleSort(value) {
     // console.log(value, "value");
     setSort(value);
@@ -71,7 +74,7 @@ function ShoppingListing() {
     // creating a copy of the filtered items
     let cpyFilters = { ...filters };
 
-    //                            //checking if SectionId is present or not in the filters
+    //checking if SectionId is present or not in the filters
     const indexOfCurrentSection = Object.keys(cpyFilters).indexOf(getSectionId); // this will return -1, meaning that section is not currently being filtered. return 0 if present
 
     if (indexOfCurrentSection === -1) {
@@ -80,7 +83,7 @@ function ShoppingListing() {
         [getSectionId]: [getCurrentOption],
       };
     } else {
-      ////checking if Option is present or not in the filters
+      //checking if Option is present or not in the filters
       const indexOfCurrentOption =
         cpyFilters[getSectionId].indexOf(getCurrentOption);
 
@@ -135,7 +138,7 @@ function ShoppingListing() {
 
     //   getting the filters from the local storage
     setFilters(JSON.parse(sessionStorage.getItem("filters")) || {});
-  }, []);
+  }, [categorySearchParam]);
 
   // update the url when the filters change
   useEffect(() => {
