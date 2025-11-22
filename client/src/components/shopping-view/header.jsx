@@ -39,7 +39,9 @@ function MenuItems() {
     // this line clears any previously stored filters
     sessionStorage.setItem("filters", JSON.stringify({}));
     const currentFilter =
-      getCurrentMenuItem.id !== "home" && getCurrentMenuItem.id !== "products"
+      getCurrentMenuItem.id !== "home" &&
+      getCurrentMenuItem.id !== "products" &&
+      getCurrentMenuItem.id !== "search"
         ? {
             category: [getCurrentMenuItem.id],
           }
