@@ -22,13 +22,12 @@ function SearchProducts() {
   const { productDetails } = useSelector((state) => state.shopProducts);
   const { user } = useSelector((state) => state.auth);
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
-  
 
   const { cartItems } = useSelector((state) => state.shopCart);
   const { toast } = useToast();
 
   useEffect(() => {
-    if (keyword && keyword.trim() !== "" && keyword.trim().length > 3) {
+    if (keyword && keyword.trim() !== "" && keyword.trim().length > 1) {
       setTimeout(() => {
         setSearchParams(new URLSearchParams(`?keyword=${keyword}`));
         dispatch(getSearchResults(keyword));
@@ -40,13 +39,13 @@ function SearchProducts() {
     }
   }, [keyword]);
 
-  // console.log(searchResults, "search results");
+  console.log(searchResults, "search results");
 
+  //
   //fetching the product details
   useEffect(() => {
     if (productDetails !== null) setOpenDetailsDialog(true);
   }, [productDetails]);
-
 
   function handleAddtoCart(getCurrentProductId, getTotalStock) {
     // console.log(getCurrentProductId, "handle Addto cart");
@@ -76,7 +75,7 @@ function SearchProducts() {
         productId: getCurrentProductId,
         quantity: 1,
       })
-    )
+    )  
       .then((data) => {
         // console.log(data, "data");
         if (data?.payload?.success)
@@ -91,11 +90,10 @@ function SearchProducts() {
       });
   }
 
-
-    function handleGetProductDetails(getCurrentProductId) {
-      // console.log(getCurrentProductId, "productId");
-      dispatch(fetchProductDetails(getCurrentProductId));
-    }
+  function handleGetProductDetails(getCurrentProductId) {
+    // console.log(getCurrentProductId, "productId");
+    dispatch(fetchProductDetails(getCurrentProductId));
+  }
 
   return (
     <div className="container mx-auto md:px-6 px-4 py-8">
