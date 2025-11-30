@@ -32,12 +32,12 @@ const reviewSlice = createSlice({
     initialState,
     reducers : {},
      extraReducers : (builder)=> {
-        builder.addCase(addReview.pending, (state)=>{
+        builder.addCase(getReviews.pending, (state)=>{
             state.isLoading = true;
-        }).addCase(addReview.fulfilled, (state, action)=>{
+        }).addCase(getReviews.fulfilled, (state, action)=>{
             state.isLoading = false;
             state.reviews = action.payload.data;
-        }).addCase(addReview.rejected, (state)=>{
+        }).addCase(getReviews.rejected, (state)=>{
             state.isLoading = false;
             state.reviews = []; 
         })

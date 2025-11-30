@@ -7,7 +7,7 @@ const ProductReview = require("../../models/Review");
 const addProductReview = async (req, res) => {
   try {
 
-     console.log("RECEIVED BODY:", req.body);  //
+    //  console.log("RECEIVED BODY:", req.body); 
      
     const { productId, userId, userName, reviewMessage, reviewValue } =
       req.body;
@@ -18,7 +18,7 @@ const addProductReview = async (req, res) => {
       orderStatus: "confirmed",
     });
 
-    console.log(order)
+    // console.log(order)
 
     if (!order) {
       return res.status(403).json({
