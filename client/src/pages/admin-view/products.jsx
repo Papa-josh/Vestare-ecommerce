@@ -34,7 +34,7 @@ const initialFormData = {
   totalStock: "",
   averageReview: 0,
 };
-
+   
 function AdminProducts() {
   const [openCreateProductsDialog, setOpenCreateProductsDialog] =
     useState(false);

@@ -32,6 +32,7 @@ import { useNavigate } from "react-router-dom";
 import { addToCart, fetchCartItems } from "@/store/shop/cart-slice";
 import { useToast } from "@/hooks/use-toast";
 import ProductDetailsDialog from "@/components/shopping-view/product-details";
+import { getFeatureImages } from "@/store/common-slice";
 
 const categoriesWithIcon = [
   { id: "men", label: "Men", icon: ShirtIcon },
@@ -55,6 +56,8 @@ function ShoppingHome() {
   const { productList, productDetails } = useSelector(
     (state) => state.shopProducts
   );
+  const { featureImageList } = useSelector((state) => state.commonFeature);
+
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
 
   const dispatch = useDispatch();
@@ -62,7 +65,6 @@ function ShoppingHome() {
   const { toast } = useToast();
   const { user } = useSelector((state) => state.auth);
 
-  const slides = [bannerOne, bannerTwo, bannerThree];
 
   function handleNavigateToListingPage(getCurrentItem, section) {
     //
@@ -122,15 +124,15 @@ function ShoppingHome() {
         sortParams: "price-lowtohigh",
       })
     );
-  }, []);
+  }, [dispatch]);
 
   // Auto Slide
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-    }, 5000);
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % featureImageList.length);
+    }, 3000);
     return () => clearInterval(timer);
-  }, [slides.length]);
+  }, [featureImageList.length]);
   // console.log(productList, "productListtt");
 
   //fetching the product details
@@ -138,20 +140,30 @@ function ShoppingHome() {
     if (productDetails !== null) setOpenDetailsDialog(true);
   }, [productDetails]);
 
+
+    useEffect(()=> {
+      dispatch(getFeatureImages())
+    },[dispatch]);
+
+    // console.log(getFeatureImages, "feture images")
+
+    
   return (
     <div className="flex flex-col min-h-screen">
       {/* Banner */}
       <div className="relative w-full h-[600px] overflow-hidden">
-        {slides.map((slide, index) => (
-          <img
-            key={index}
-            src={slide}
-            className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ${
-              index === currentSlide ? "opacity-100" : "opacity-0"
-            }`}
-            alt={`Slide ${index + 1}`}
-          />
-        ))}
+        {featureImageList && featureImageList.length > 0
+          ? featureImageList.map((slide, index) => (
+              <img
+                key={index}
+                src={slide.image}
+                className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                  index === currentSlide ? "opacity-100" : "opacity-0"
+                }`}
+                alt={`Slide ${index + 1}`}
+              />
+            ))
+          : null}
 
         {/* Left Navigation */}
         <Button
@@ -159,7 +171,9 @@ function ShoppingHome() {
           size="icon"
           onClick={() =>
             setCurrentSlide(
-              (prevSlide) => (prevSlide - 1 + slides.length) % slides.length
+              (prevSlide) =>
+                (prevSlide - 1 + featureImageList.length) %
+                featureImageList.length
             )
           }
           className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/80"
@@ -172,7 +186,9 @@ function ShoppingHome() {
           variant="outline"
           size="icon"
           onClick={() =>
-            setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length)
+            setCurrentSlide(
+              (prevSlide) => (prevSlide + 1) % featureImageList.length
+            )
           }
           className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/80"
         >
