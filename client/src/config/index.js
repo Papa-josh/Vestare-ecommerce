@@ -1,5 +1,39 @@
 // client/src/config/index.js
 
+/**
+ * Configuration Module
+ * -----------------------------------------------------------
+ * This file centralizes all reusable configuration objects used
+ * across the client-side application. Instead of hardcoding form
+ * fields, menu items, filter options, and dropdown mappings inside
+ * components, this file provides a structured set of definitions
+ * that the UI can dynamically consume.
+ *
+ * It contains:
+ * - Form configurations for Register, Login, Add Product, and Address forms
+ * - Header menu items for the Shopping View
+ * - Category and brand option mappings
+ * - Filter and sorting configurations for product listing
+ *
+ * Purpose:
+ * --------
+ * To keep the application scalable and maintainable by separating
+ * UI configuration data from component logic. Any change in labels,
+ * field structure, dropdown options, or UI filters can be updated
+ * here without modifying component code.
+ *
+ * Used By:
+ * --------
+ * - <CommonForm /> component for generating dynamic forms
+ * - Header navigation menus
+ * - Product filters and sorting functionality
+ * - Admin product creation forms
+ *
+ * This file ensures consistency, reusability, and easy management
+ * of form and UI configurations throughout the application.
+ */
+
+
 //This is our configuration for register . We will going to receive in the form.jsx component
 export const registerFormControl = [
   {
