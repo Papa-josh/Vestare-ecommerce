@@ -1,3 +1,5 @@
+//server/controllers/shop/cart-controller.js
+
 const Cart = require("../../models/Cart");
 const Product = require("../../models/Product");
 
@@ -70,16 +72,16 @@ const fetchCartItems = async (req, res) => {
     }
 
     // Find the cart for that user
-    const cart = await Cart.findOne({ userId }).populate({
+    let cart = await Cart.findOne({ userId }).populate({
       path: "items.productId",
       select: "image title price salePrice",
     });
 
+    // If cart doesn't exist, create one
     if (!cart) {
-      return res.status(404).json({
-        success: false,
-        message: "Cart not found!",
-      });
+      // Added block
+      cart = new Cart({ userId, items: [] });
+      await cart.save();
     }
 
     // Filter out the invalid items
